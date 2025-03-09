@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class BoardTestSuite {
 
     @Test
-    void testComposeBoardView() {
+    void testComposeViewView() {
         //Given
         Board board = new Board();
 
