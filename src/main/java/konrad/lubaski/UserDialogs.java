@@ -13,11 +13,10 @@ public class UserDialogs {
                 System.out.println("Invalid input. Please enter a letter between a-c and number between 1-3");
                 continue;
             }
-            if (!(input.charAt(0) >= 'a' && input.charAt(0) <= 'c' && input.charAt(1) >= '1' && input.charAt(1) <= '3')) {
-                System.out.println("Invalid input. Please enter a letter between a-c and number between 1-3");
-            } else {
+            if ((input.charAt(0) >= 'a' && input.charAt(0) <= 'c' && input.charAt(1) >= '1' && input.charAt(1) <= '3')) {
                 return input;
             }
+            System.out.println("Invalid input. Please enter a letter between a-c and number between 1-3");
         }
     }
 

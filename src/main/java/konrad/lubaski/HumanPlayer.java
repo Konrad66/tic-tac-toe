@@ -9,7 +9,7 @@ public class HumanPlayer extends Player {
             String playerInput = UserDialogs.readText();
             y = Character.getNumericValue(playerInput.charAt(1)) - 1;
             x = playerInput.charAt(0) - 'a';
-        } while (!board.isValidMove(x, y));
+        } while (board.isInvalidMove(x, y));
         return new int[]{x, y};
     }
 

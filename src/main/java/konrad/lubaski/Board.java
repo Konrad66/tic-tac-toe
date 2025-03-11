@@ -15,8 +15,8 @@ public class Board {
         }
     }
 
-    public void doMove(int[] move, Player player) {
-        boardArray[move[1]][move[0]] = player.getField();
+    public void doMove(int[] move, Field field) {
+        boardArray[move[1]][move[0]] = field;
     }
 
     public boolean isBoardFull() {
@@ -31,17 +31,8 @@ public class Board {
     }
 
     public boolean checkWin(Field playerSymbol) {
-        for (int i = 0; i < WIDTH; i++) {
-            if (boardArray[i][0] == playerSymbol && boardArray[i][1] == playerSymbol && boardArray[i][2] == playerSymbol) {
-                return true;
-            }
-        }
-
-        for (int i = 0; i < HEIGHT; i++) {
-            if (boardArray[0][i] == playerSymbol && boardArray[1][i] == playerSymbol && boardArray[2][i] == playerSymbol) {
-                return true;
-            }
-        }
+        if (checkWinRow(playerSymbol)) return true;
+        if (checkWinColumn(playerSymbol)) return true;
 
         if (boardArray[0][0] == playerSymbol && boardArray[1][1] == playerSymbol && boardArray[2][2] == playerSymbol) {
             return true;
@@ -54,7 +45,35 @@ public class Board {
         return false;
     }
 
-    public boolean isInValidMove(int x, int y) {
+    private boolean checkWinRow(Field playerSymbol) {
+        for (int y = 0; y < HEIGHT; y++) {
+            boolean rowWin = true;
+            for (int x = 0; x < WIDTH; x++) {
+                if (boardArray[y][x] != playerSymbol) {
+                    rowWin = false;
+                    break;
+                }
+            }
+            if (rowWin) return true;
+        }
+        return false;
+    }
+
+    private boolean checkWinColumn(Field playerSymbol) {
+        for (int x = 0; x < WIDTH; x++) {
+            boolean columnWin = true;
+            for (int y = 0; y < HEIGHT; y++) {
+                if (boardArray[y][x] != playerSymbol) {
+                    columnWin = false;
+                    break;
+                }
+            }
+            if (columnWin) return true;
+        }
+        return false;
+    }
+
+    public boolean isInvalidMove(int x, int y) {
         return x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT || !isFieldFree(x, y);
     }
 
@@ -62,31 +81,7 @@ public class Board {
         return boardArray[y][x] == Field.EMPTY;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder boardView = new StringBuilder();
-        boardView.append("   ");
-        for (char letter = 'A'; letter < 'A' + WIDTH; letter++) {
-            boardView.append(" ").append(letter).append("  ");
-        }
-        boardView.append("\n");
-
-        for (int y = 0; y < HEIGHT; y++) {
-            boardView.append(y + 1).append(" ");
-
-            for (int x = 0; x < WIDTH; x++) {
-                boardView.append("| ");
-
-                if (boardArray[y][x] == Field.X) {
-                    boardView.append("X ");
-                } else if (boardArray[y][x] == Field.O) {
-                    boardView.append("O ");
-                } else {
-                    boardView.append("  ");
-                }
-            }
-            boardView.append("|\n");
-        }
-        return boardView.toString();
+    public Field[][] getBoardArray() {
+        return boardArray;
     }
 }

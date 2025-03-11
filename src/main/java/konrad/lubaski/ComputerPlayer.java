@@ -11,7 +11,7 @@ public class ComputerPlayer extends Player {
         do {
             x = random.nextInt(3);
             y = random.nextInt(3);
-        } while (!board.isValidMove(x, y));
+        } while (board.isInvalidMove(x, y));
         return new int[]{x, y};
     }
 
